@@ -83,14 +83,7 @@ Outcomes
 * PCA of key features and resulting K-means clustering generated five (5) customer segments with silhouette score of 0.7456 (cloer to 1, the better).
 * Performance of offers was evaluated across different segments using transaction value and average transaction value. The choice of completion as an offer performance measure is insufficient as it excludes the cumulative impact of the small "unqualifying" transactions to the sales revenue of Starbucks (see category offer results below)
 
-Description for Performance Measures
-* cat_pop: number of customers in category
-* recv: number of customers that received offer
-* view: number of customers that viewed offer
-* compltn: number of customers that completed offer after viewing
-* notxns: number of transactions influenced by offer
-* txnval: monetary value of transactions
-* %compltn: percentage of customers who completed offer after viewing
+see results in the [link]()
 
 Segment Offer Results
 
