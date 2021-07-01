@@ -83,7 +83,7 @@ Outcomes
 * PCA of key features and resulting K-means clustering generated five (5) customer segments with silhouette score of 0.7456 (cloer to 1, the better).
 * Performance of offers was evaluated across different segments using transaction value and average transaction value. The choice of completion as an offer performance measure is insufficient as it excludes the cumulative impact of the small "unqualifying" transactions to the sales revenue of Starbucks (see category offer results below)
 
-See results report via the [link](https://github.com/ChidiOnum/Starbucks-Capstone/blob/902e8215d7703f0866503e78e8f7fdfabd7c9fca/Category%20Results.pdf) and within this [this GitHub repository](https://github.com/ChidiOnum/Starbucks-Capstone.git) and [blog post](https://cndukwe.blogspot.com/2021/06/starbucks-project-segmentation-and.html)
+See results report via the [link](https://github.com/ChidiOnum/Starbucks-Capstone/blob/902e8215d7703f0866503e78e8f7fdfabd7c9fca/Category%20Results.pdf) and within this [this GitHub repository](https://github.com/ChidiOnum/Starbucks-Capstone.git) and [blog post](https://chidi-ndukwe.medium.com/starbucks-capstone-project-28a0ebee5849)
 
 ## Authors, Acknowledgements
 The data was provided by Starbucks and Udacity
