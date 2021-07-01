@@ -40,7 +40,7 @@
 
 # ## 2.1 Data Import
 
-# In[427]:
+# In[202]:
 
 
 import pandas as pd
@@ -61,28 +61,28 @@ transcript = pd.read_json('transcript.json', orient='records', lines=True)
 # ## 2.2 Portfolio Data
 # To Review: dataframe structure; data types; unique values; distribution
 
-# In[428]:
+# In[203]:
 
 
 # View the dataframe and values
 portfolio.head(3)
 
 
-# In[429]:
+# In[204]:
 
 
 # View data structure and types
 portfolio.info()
 
 
-# In[430]:
+# In[205]:
 
 
 # View Offer Types
 portfolio['offer_type'].unique().tolist()
 
 
-# In[431]:
+# In[206]:
 
 
 # Distribution of values within numeric fields
@@ -104,21 +104,21 @@ portfolio.hist(alpha=0.5, figsize=(5, 5));
 # ## 2.3 Profile Dataset
 # To Review: dataframe structure; data types; unique values; distribution
 
-# In[432]:
+# In[207]:
 
 
 # View the dataframe and values
 profile.head(3)
 
 
-# In[433]:
+# In[208]:
 
 
 # View data structure and types
 profile.info()
 
 
-# In[434]:
+# In[209]:
 
 
 # Null check: Count and % proportion
@@ -131,21 +131,21 @@ print('------------------------')
 print(profile.isnull().mean())
 
 
-# In[435]:
+# In[210]:
 
 
 # Distribution of values within numeric fields
 profile[['age','income']].hist(alpha=0.5, figsize=(8, 3));
 
 
-# In[436]:
+# In[211]:
 
 
 # Understand categories within gender
 profile['gender'].unique()
 
 
-# In[437]:
+# In[212]:
 
 
 # Understand distribution of gender
@@ -170,42 +170,42 @@ profile['gender'].hist(alpha=0.5, figsize=(5, 3));
 # ## 2.4 Transcript Dataset
 # To Review: table structure; data types; unique values; distribution
 
-# In[438]:
+# In[213]:
 
 
 # View the table structure and values
 transcript.head(3)
 
 
-# In[439]:
+# In[214]:
 
 
 # View data structure and types
 transcript.info()
 
 
-# In[440]:
+# In[215]:
 
 
 # Understand categories within event
 transcript['event'].value_counts()
 
 
-# In[441]:
+# In[216]:
 
 
 # Highlight data structure within events column
 transcript['value'].tail()
 
 
-# In[442]:
+# In[217]:
 
 
 # Highlight data structure within events column
 transcript['value'].head()
 
 
-# In[443]:
+# In[218]:
 
 
 # Uniqueness check of person column
@@ -235,7 +235,7 @@ transcript['person'].nunique()
 
 # Create a new id column with more recognizable and easier to process values for offer id
 
-# In[444]:
+# In[219]:
 
 
 # define rules
@@ -247,7 +247,7 @@ rule03 = lambda x:'0'+ str(x) if x<10 else str(x)
 portfolio['short_id'] = portfolio['offer_type'].apply(rule01) + portfolio['duration'].apply(rule02) + portfolio['difficulty'].apply(rule03)
 
 
-# In[445]:
+# In[220]:
 
 
 # view impact on dataframe
@@ -256,7 +256,7 @@ portfolio.head(3)
 
 # Create a column for duration in hours
 
-# In[446]:
+# In[221]:
 
 
 # set conversion of day to hours (24hrs = 1 day)
@@ -266,16 +266,16 @@ day_hrs = 24.0
 portfolio['duration_hrs'] = portfolio['duration'] * day_hrs
 
 
-# In[447]:
+# In[312]:
 
 
 # view impact on dataframe
-portfolio.head(3)
+portfolio
 
 
 # Create Mapping Files: short version id vs id; short id vs duration in hours
 
-# In[448]:
+# In[223]:
 
 
 # Map long offer id to new short id
@@ -287,7 +287,7 @@ map_shortid_hrs = dict(portfolio[['short_id','duration_hrs']].values.tolist()) #
 
 # Additional: Create list of offers to automate analysis of impact of offers on different customer segment categories
 
-# In[449]:
+# In[224]:
 
 
 # generate list for portfolio.short_id column
@@ -309,7 +309,7 @@ offer_list_shortid.sort()
 
 # Create short version of id (user_id)
 
-# In[450]:
+# In[225]:
 
 
 # Create short version of id (user_id)
@@ -335,7 +335,7 @@ profile.head(3)
 
 # Address null records: Keep (Impute) or Remove (Delete)
 
-# In[451]:
+# In[226]:
 
 
 # Impute Numeric Fields: Fill nans with mean, median, mode
@@ -355,7 +355,7 @@ ax.legend(lines, labels, loc='best')
 plt.show() 
 
 
-# In[452]:
+# In[227]:
 
 
 # Impute Categorical Fields: Fill nans mode
@@ -368,7 +368,7 @@ profile['gender-fill'].hist(alpha=0.5, figsize=(5, 3));
 
 # Attempt a correction for error in age (118). Most likely a data entry error for 18
 
-# In[453]:
+# In[228]:
 
 
 # Replace 118 with 18
@@ -379,7 +379,7 @@ profile[['age','age_fill']].hist(alpha=0.5, figsize=(8, 3)); # plot histogram be
 
 # Convert "became_member_on" to date
 
-# In[454]:
+# In[229]:
 
 
 profile['became_member_on'] = pd.to_datetime(profile['became_member_on'], format='%Y%m%d')
@@ -387,7 +387,7 @@ profile['became_member_on'] = pd.to_datetime(profile['became_member_on'], format
 
 # Additional Task: Create mapping for id, user_id
 
-# In[455]:
+# In[230]:
 
 
 id_userid_map = profile[['id','user_id']]
@@ -417,7 +417,7 @@ map_userid_person = dict(id_userid_map.values.tolist()) # map required to simpli
 
 # Unpack value column to extract keys and values
 
-# In[456]:
+# In[231]:
 
 
 # Extract value column into dataframe
@@ -429,7 +429,7 @@ value_unpacked.head(3)
 
 # Apply unpacked value column to transcript dataframe
 
-# In[457]:
+# In[232]:
 
 
 # Applying unpacked value column to transcript dataframe
@@ -441,7 +441,7 @@ transcript_unpacked.head(3)
 
 # Map person to profile user id (short version).
 
-# In[458]:
+# In[233]:
 
 
 # Map person to profile user id (short version).
@@ -487,7 +487,7 @@ transcript_unpacked.head(5)
 
 # Data Preparation
 
-# In[459]:
+# In[234]:
 
 
 # Creating new columns in preparation for transaction labelling
@@ -504,7 +504,7 @@ transcript_unpacked.reset_index(inplace=True, drop=True)
 
 # Labelling Transactions
 
-# In[460]:
+# In[235]:
 
 
 # Iterating through txn history (transcript) and labeling relevant fields
@@ -581,14 +581,14 @@ for index, row in transcript_unpacked.iterrows():
             transcript_unpacked.at[index, 'influence'] = 'self'
 
 
-# In[461]:
+# In[236]:
 
 
 # Displaying updates made (1st 10 records)
 transcript_unpacked.head(10)
 
 
-# In[462]:
+# In[237]:
 
 
 # Displaying updates made (last 10 records)
@@ -597,7 +597,7 @@ transcript_unpacked.tail(10)
 
 # customer-offer interaction matrix
 
-# In[463]:
+# In[311]:
 
 
 # Create customer-offer interaction matrix (view into customer preferences/behaviour)
@@ -605,7 +605,7 @@ transcript_unpacked.tail(10)
 df_extract_txns = transcript_unpacked[transcript_unpacked.event=='transaction'] # extract transactions
 cust_offer_matrix = df_extract_txns.groupby(by=['user_id','influence'])['amount'].sum().unstack() # matrix by spend
 df_cust_offer_nonull = cust_offer_matrix.fillna(0) # create a copy of customer-offer interaction matrix and fill null
-df_cust_offer_nonull.head(3)
+df_cust_offer_nonull.head(10)
 
 
 # Interpretation:
@@ -614,7 +614,7 @@ df_cust_offer_nonull.head(3)
 # - user 2 is not influenced by bogo and discount offers. Self motivated
 # - user 3 is both self motivated and interested in bogo offers. Preference is bogo0705
 
-# In[464]:
+# In[239]:
 
 
 # Identify customers with no transactions across self, bogo and discount
@@ -634,14 +634,14 @@ print("number of customers without transactions: {:,}".format((total_cust_base-c
 
 # Additional tasks: Create a comprehensive reference dataframe by adding relevant columns to user-interaction dataframe
 
-# In[465]:
+# In[240]:
 
 
 # Transaction count per customer
 df_cust_txnCount = df_extract_txns[df_extract_txns.influence=='self'].groupby(['user_id']).agg(txn_count=('event',pd.Series.count)).reset_index()
 
 
-# In[466]:
+# In[241]:
 
 
 # Profile dataframe: Create column for number of months as member
@@ -649,28 +649,28 @@ cutoff_date = pd.to_datetime('20210618',format='%Y%m%d')
 profile['membership_mnths'] = ((cutoff_date - profile['became_member_on'])/np.timedelta64(1,'M')).astype(int)
 
 
-# In[467]:
+# In[242]:
 
 
 # Profile dataframe: Extract relevant fields - userid, age, income (median fill), months as member
 cust_profile_trim = profile[['user_id','age_fill','income_medianfill','membership_mnths','gender-fill']]
 
 
-# In[468]:
+# In[243]:
 
 
 # join profile trim with count of transactions
 cust_profile_txn = cust_profile_trim.merge(df_cust_txnCount, how='left', on='user_id')
 
 
-# In[469]:
+# In[244]:
 
 
 # create master dataframe with demographics and customer-offer interaction details
 cust_profile_txn_matrix = cust_profile_txn.merge(df_cust_offer_nonull, how='left',on='user_id')
 
 
-# In[470]:
+# In[245]:
 
 
 # cleaning master dataframe
@@ -678,7 +678,7 @@ cust_profile_txn_matrix.set_index('user_id',drop=True,inplace=True) # set user_i
 cust_profile_txn_matrix.fillna(0, inplace=True) # fill nulls
 
 
-# In[471]:
+# In[246]:
 
 
 # Creating subtotals for bogo and discount offers
@@ -693,7 +693,7 @@ cust_profile_txn_matrix['discount'] = (cust_profile_txn_matrix['disc0707']
                                             +cust_profile_txn_matrix['disc1020'])
 
 
-# In[472]:
+# In[247]:
 
 
 # create categories for membership. Business rule (Assumption) - Members are new for 3 months after joining
@@ -708,23 +708,29 @@ cust_profile_txn_matrix['custtype'] = cust_profile_txn_matrix['membership_mnths'
 # compared to 6 (0.6881), 12 (0.6473) etc
 
 
-# In[473]:
+# In[248]:
 
 
 # view master reference dataframe
 cust_profile_txn_matrix.head(3)
 
 
-# In[474]:
+# In[249]:
 
 
 # understand master reference dataframe
 cust_profile_txn_matrix.describe()
 
 
+# In[250]:
+
+
+cust_profile_txn_matrix.corr()
+
+
 # # 4.2 PCA (Dimension Reduction)
 
-# In[475]:
+# In[251]:
 
 
 cust_profile_txn_matrix.columns
@@ -738,17 +744,24 @@ cust_profile_txn_matrix.columns
 
 # Definitions
 
-# In[476]:
+# In[252]:
 
 
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 
-# In[477]:
+# In[253]:
 
 
 def showkeycomponents(df):
+    '''
+    INPUT:
+    df - (pandas dataframe) with features for principal component analysis
+    
+    OUTPUT:
+    PCA_components - (pandas dataframe) transformed data of principal components 
+    '''
     X_std = StandardScaler().fit_transform(df.values)
     pca = PCA(n_components=0.90) # return components that explain 90% of variance in data
     principalComponents = pca.fit_transform(X_std)
@@ -760,10 +773,17 @@ def showkeycomponents(df):
     return PCA_components 
 
 
-# In[478]:
+# In[254]:
 
 
 def threeDplot(df):
+    '''
+    INPUT:
+    df - (pandas dataframe) with features for scatter plot
+    
+    OUTPUT:
+    
+    '''
     fig = plt.figure(figsize = (5, 5))
     ax = plt.axes(projection ="3d")
  
@@ -782,7 +802,7 @@ def threeDplot(df):
 
 # One Hot Encoding for categorical Columns/Features
 
-# In[479]:
+# In[255]:
 
 
 # transformation for gender and membership class
@@ -791,7 +811,7 @@ df_temp = pd.get_dummies((pd.get_dummies(cust_profile_txn_matrix, columns=['gend
 
 # **SCENARIO 1: Segmentation Using Demograhics Data + Membership Class (Income, Age, Sex, Membership Type)**
 
-# In[480]:
+# In[256]:
 
 
 # Features list and resulting dataframe
@@ -799,14 +819,14 @@ features_list = ['income_medianfill','age_fill','custtype_new','custtype_old','g
 df_cust_test = df_temp[features_list]
 
 
-# In[481]:
+# In[257]:
 
 
 # Call PCA showkeycomponents
 analysis_demographics = showkeycomponents(df_cust_test)
 
 
-# In[482]:
+# In[258]:
 
 
 # 3D plot of top 3 components
@@ -815,7 +835,7 @@ threeDplot(analysis_demographics)
 
 # **SCENARIO 2: Segmentation Using Customer Bahaviour (Self, Bogo, Discount, Membership Class)**
 
-# In[483]:
+# In[259]:
 
 
 # Features list and resulting dataframe
@@ -823,14 +843,14 @@ features_list =['self','bogo','discount','custtype_new','custtype_old']
 df_cust_test = df_temp[features_list]
 
 
-# In[484]:
+# In[260]:
 
 
 # Call PCA showkeycomponents
 analysis_cust_behave = showkeycomponents(df_cust_test)
 
 
-# In[485]:
+# In[261]:
 
 
 # 3D plot of top 3 components
@@ -851,7 +871,7 @@ threeDplot(analysis_cust_behave)
 
 # Definitions
 
-# In[486]:
+# In[262]:
 
 
 from sklearn.preprocessing import MaxAbsScaler
@@ -859,10 +879,19 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 
 
-# In[487]:
+# In[263]:
 
 
 def normalize_data(df_to_normalize, no_of_components):
+    '''
+    INPUT:
+    df_to_normalize - (pandas dataframe) with features requiring standardization
+    no_of_components - (int)
+    
+    
+    OUTPUT:
+    df_normalized - (pandas dataframe) with standardized data using MaxAbsScaler
+    '''
     scaler = MaxAbsScaler()
     scaler.fit(df_to_normalize)
     df_normalized = pd.DataFrame(scaler.transform(df_to_normalize), columns=df_to_normalize.columns)
@@ -870,10 +899,20 @@ def normalize_data(df_to_normalize, no_of_components):
     
 
 
-# In[488]:
+# In[264]:
 
 
 def kmeans_cluster_no(df_normalized, components, max_no_cluster=20):
+    '''
+    INPUT:
+    df_to_normalize - (pandas dataframe) with features requiring standardization
+    no_of_components - (int) number of features to use in function
+    max_no_cluster - (int) number of clusters to iterate to
+    
+    
+    OUTPUT:
+    None
+    '''
     wcss = []
     X = df_normalized.iloc[:,:components].values
     for i in range(1, max_no_cluster):
@@ -889,10 +928,19 @@ def kmeans_cluster_no(df_normalized, components, max_no_cluster=20):
     return None
 
 
-# In[489]:
+# In[265]:
 
 
 def silhouette_cluster_no(df_normalized, max_no_cluster=10):
+    '''
+    INPUT:
+    df_to_normalize - (pandas dataframe) with features requiring standardization
+    max_no_cluster - (int) number of clusters required
+    
+    
+    OUTPUT:
+    num_cluster - (int) number of segments based on highest silhouette score
+    '''
     
     range_n_clusters = list (range(2,max_no_cluster))
     cluster_scores = []
@@ -913,10 +961,19 @@ def silhouette_cluster_no(df_normalized, max_no_cluster=10):
     return num_cluster
 
 
-# In[490]:
+# In[266]:
 
 
 def cluster_data(df_normalized, cluster_num):
+    '''
+    INPUT:
+    df_to_normalize - (pandas dataframe) with features requiring standardization
+    cluster_num - (int) number of clusters required
+    
+    
+    OUTPUT:
+    kcategories - (series) index values with cluster number assigned
+    '''
     kmeansmodel = KMeans(n_clusters=cluster_num, init='k-means++', random_state=0)
     y_kmeans = kmeansmodel.fit_predict(df_normalized)
     kcategories = y_kmeans
@@ -925,14 +982,14 @@ def cluster_data(df_normalized, cluster_num):
 
 # **SCENARIO 1: Segmentation Using Demograhics Data + Membership Class (Income, Age, Sex, Membership Type)**
 
-# In[491]:
+# In[267]:
 
 
 # Identify Number of Clusters: Elbow Method
 kmeans_cluster_no(df_normalized=analysis_demographics,components=analysis_demographics.shape[1],max_no_cluster=15)
 
 
-# In[492]:
+# In[268]:
 
 
 # Identify Number of Clusters: Silhouette Method
@@ -941,14 +998,14 @@ cluster_no_s1 = silhouette_cluster_no(df_normalized=analysis_demographics)
 
 # **SCENARIO 2: Segmentation Using Customer Bahaviour (Self, Bogo, Discount, Membership Class)**
 
-# In[493]:
+# In[269]:
 
 
 # Identify Number of Clusters: Elbow Method
 kmeans_cluster_no(df_normalized=analysis_cust_behave,components=analysis_cust_behave.shape[1],max_no_cluster=15)
 
 
-# In[494]:
+# In[270]:
 
 
 # Identify Number of Clusters: Silhouette Method
@@ -981,7 +1038,7 @@ cluster_no_s2 = silhouette_cluster_no(df_normalized=analysis_cust_behave)
 
 # # 5.1 Mapping users/customers to categories
 
-# In[495]:
+# In[271]:
 
 
 # mapping users to categories
@@ -997,7 +1054,7 @@ cust_profile_txn_matrix.head(3)
 
 # ## 5.2 Basic Cluster Characteristics
 
-# In[496]:
+# In[272]:
 
 
 for cluster in range(cluster_no_s2):
@@ -1022,7 +1079,7 @@ for cluster in range(cluster_no_s2):
 
 # Data Processing for Analysis
 
-# In[497]:
+# In[273]:
 
 
 #create mapping for userid and cluster category for use on transcript dataframe
@@ -1037,63 +1094,125 @@ transcript_unpacked.head(3)
 
 # Defining Relevant Functions
 
-# In[498]:
+# Cluster Level Measures
+
+# In[274]:
 
 
 def category_size(df=cust_profile_txn_matrix):
+    '''
+    INPUT:
+    df - (pandas dataframe) with customer profile and transaction data
+    
+    
+    OUTPUT:
+    df_temp_grp - (series) number of customers per cluster/category
+    '''    
     df_temp_grp = df.groupby(['category'])['age_fill'].count()
     return df_temp_grp
 
 
-# In[499]:
+# In[275]:
 
 
 def received_offer(offerid, txnhist=transcript_unpacked, event='offer received'):
+   '''
+    INPUT:
+    offerid - (string) short_id of promotional offer
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (series) number of customers that received offer within each cluster
+    '''    
     df_temp = txnhist[(txnhist['short_id']==offerid) & (txnhist['event']==event)]
     df_temp_grp = df_temp.groupby(['category'])['user_id'].count()
     return df_temp_grp
 
 
-# In[500]:
+# In[276]:
 
 
 def viewd_offer(offerid, txnhist=transcript_unpacked, event='offer viewed'):
+   '''
+    INPUT:
+    offerid - (string) short_id of promotional offer
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (series) number of customers by clusters that viewed an offer
+    '''    
     df_temp = txnhist[(txnhist['short_id']==offerid) & (txnhist['event']==event)]
     df_temp_grp = df_temp.groupby(['category'])['user_id'].count()
     return df_temp_grp
 
 
-# In[501]:
+# In[277]:
 
 
 def viewd_complete(offerid, txnhist=transcript_unpacked, event='offer:viewed'):
+   '''
+    INPUT:
+    offerid - (string) short_id of promotional offer
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (series) number of customers by clusters that completed an offer after viewing
+    '''    
     df_temp = txnhist[(txnhist['short_id']==offerid) & (txnhist['completiontype']==event)]
     df_temp_grp = df_temp.groupby(['category'])['user_id'].count()
     return df_temp_grp
 
 
-# In[502]:
+# In[278]:
 
 
 def no_txns(offerid, txnhist=transcript_unpacked, event='transaction'):
+   '''
+    INPUT:
+    offerid - (string) short_id of promotional offer
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (series) number of transactions by clusters influenced by offer 
+    ''' 
     df_temp = txnhist[(txnhist['influence']==offerid) & (txnhist['event']==event)]
     df_temp_grp = df_temp.groupby(['category'])['user_id'].count()
     return df_temp_grp
 
 
-# In[503]:
+# In[279]:
 
 
 def txns_value(offerid, txnhist=transcript_unpacked, event='transaction'):
+   '''
+    INPUT:
+    offerid - (string) short_id of promotional offer
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (series) value of transactions by clusters influenced by offer 
+    '''
     df_temp = txnhist[(txnhist['influence']==offerid) & (txnhist['event']==event)]
     df_temp_grp = df_temp.groupby(['category'])['amount'].sum()
     return df_temp_grp
 
 
-# In[504]:
+# In[280]:
 
 
 def cat_results(offer_short_id): 
+ '''
+    INPUT:
+    offer_short_id - (string) short_id of promotional offer
+
+    OUTPUT:
+    df_all - (pandas dataframe) with descriptive statistics for offer 
+    '''
     df_cat_size = pd.DataFrame(category_size())
     df_cat_size.rename(columns = {'age_fill':'cat_pop'},inplace=True)
     
@@ -1120,7 +1239,158 @@ def cat_results(offer_short_id):
     return df_all
 
 
-# In[505]:
+# Total Measures
+
+# In[281]:
+
+
+def offer_txns(txnhist=transcript_unpacked, event='transaction'):
+   '''
+    INPUT:
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (pandas dataframe) total value of transactions influenced by offer 
+    '''
+
+    df_temp = txnhist[txnhist['event']==event]
+    df_temp_grp = pd.DataFrame(df_temp.groupby(['influence'])['event'].count())
+    df_temp_grp.rename(columns={'event':'offer_txn_count'},inplace=True)
+    return df_temp_grp
+
+
+# In[282]:
+
+
+def offer_revenue(txnhist=transcript_unpacked, event='transaction'):
+   '''
+    INPUT:
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (pandas dataframe) total value of transactions influenced by offer 
+    '''
+    df_temp = txnhist[txnhist['event']==event]
+    df_temp_grp = pd.DataFrame(df_temp.groupby(['influence'])['amount'].sum())
+    df_temp_grp.rename(columns = {'amount':'txn_value'},inplace=True)
+    return df_temp_grp
+
+
+# In[283]:
+
+
+def offer_payout(txnhist=transcript_unpacked, event='offer completed'):
+   '''
+    INPUT:
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (pandas dataframe) total value of payouts on offer completion
+    '''
+    df_temp = txnhist[txnhist['event']==event]
+    df_temp_grp = pd.DataFrame(df_temp.groupby(['short_id'])['reward'].sum())
+    df_temp_grp.rename(columns = {'reward':'reward_payout'},inplace=True)
+    return df_temp_grp
+
+
+# In[284]:
+
+
+def received_offer_total(txnhist=transcript_unpacked, event='offer received'):
+   '''
+    INPUT:
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (pandas dataframe) total number of offers sent/received
+    '''
+    df_temp = txnhist[txnhist['event']==event]
+    df_temp_grp = pd.DataFrame(df_temp.groupby(['short_id'])['user_id'].count())
+    df_temp_grp.rename(columns = {'user_id':'num_offer_sent'},inplace=True)
+    return df_temp_grp
+
+
+# In[285]:
+
+
+def viewd_complete_total(txnhist=transcript_unpacked, event='offer:viewed'):
+   '''
+    INPUT:
+    txnhist - (pandas dataframe) customer transaction history
+    event - (string) event type    
+    
+    OUTPUT:
+    df_temp_grp - (pandas dataframe) total number of offers completed after viewing
+    '''
+    df_temp = txnhist[txnhist['completiontype']==event]
+    df_temp_grp = pd.DataFrame(df_temp.groupby(['short_id'])['user_id'].count())
+    df_temp_grp.rename(columns = {'user_id':'num_offers_completed'},inplace=True)
+    return df_temp_grp
+
+
+# In[286]:
+
+
+def offer_results(): 
+ '''
+    INPUT:
+
+    OUTPUT:
+    df_all - (pandas dataframe) with descriptive statistics for offer 
+    '''
+    
+    df_offer_txn = pd.DataFrame(offer_txns())
+    df_offer_revenue = pd.DataFrame(offer_revenue())
+    df_offer_payout = pd.DataFrame(offer_payout())
+
+    df_offer_view = pd.DataFrame(received_offer_total())
+    df_offer_compltd = pd.DataFrame(viewd_complete_total())
+
+    df_all = pd.concat([df_offer_view, df_offer_compltd, df_offer_txn,df_offer_revenue,df_offer_payout], axis=1)
+    df_all.drop(index=['info0300','info0400'], inplace=True)
+    
+  
+    
+    df_all['net_txn_value'] = df_all['txn_value'] - df_all['reward_payout']
+    df_all['payout_ratio'] = round((df_all['reward_payout']/df_all['txn_value']),2)
+    df_all['percent_completn'] = round(100*(df_all['num_offers_completed']/df_all['num_offer_sent']),2)
+    
+    df_all.fillna(0, inplace=True)
+
+    
+       
+    return df_all
+
+
+# In[287]:
+
+
+total_offer_perform = offer_results()
+total_offer_perform
+
+
+# In[288]:
+
+
+#sorting 
+total_offer_perform.sort_values(by=['txn_value'], ascending=False)
+
+
+# Comments:
+# - Top 3 offers based on transaction value: disc1010; bogo0710; disc0707
+# 
+# 
+# - Offers have been ranked by transaction value because the real aim of promotional offers is to incentivise customers to transact more. "Number of offers completed" as a measure of the success of a promotional offer is inadequate as it does not capture the real value to Starbucks e.g. disc0707 has a higher completion rate but lower transaction value (revenue) compared to disc1010. When you factor reward payouts, the higher completion rates reduces the net transaction value (net revenue) a lot more for disc0707 compared to disc1010
+# 
+# 
+# - Self represents expected transaction numbers and value in the absence of any offers
+# 
+
+# In[289]:
 
 
 print("Description for Performance Measures")
@@ -1134,7 +1404,7 @@ print("txnval: monetary value of transactions")
 print("%compltn: percentage of customers who completed offer after viewing")
 
 
-# In[506]:
+# In[290]:
 
 
 # Generate performance measures for offer across categories
@@ -1150,7 +1420,7 @@ for offer in offer_list_shortid:
 
 # - Offers which have difficulty value = duration are completed at higher rates than other offers. for example, bogo0505, disc0707, disc1010
 # 
-# - Low difficulty/short duration offers generate more incremental txn value as well as completion rates compared to high difficulty/long duration offers
+# - Low difficulty/short duration offers generate more incremental transaction value as well as completion rates compared to high difficulty/long duration offers
 # 
 # - Value of transactions influenced by an offer is a better measure of performance than completion rates (see impact of mass market categories 0, 1 with relatively low completion rates but high number of small transactions and total transaction value).
 
@@ -1165,3 +1435,59 @@ for offer in offer_list_shortid:
 # - Category 3: disc1010; bogo0710; bogo0510; bogo0505; disc0707
 # 
 # - Category 4: bogo0505; bogo0510; bogo0710; bogo0705; disc1010   
+
+# ## Review of Starbucks Experiment: Concern Areas
+
+# Categorization of offer completion into offer-viewed and offer-not-viewed
+
+# In[293]:
+
+
+# Categorization of offer completion into offer-viewed and offer-not-viewed
+transcript_unpacked[transcript_unpacked['event']=='offer completed'].tail(5)
+
+
+# In[308]:
+
+
+# Total count of offer completions which happened without offer viewing
+transcript_unpacked[transcript_unpacked['completiontype']=='offer: not viewed'].shape[0]
+
+
+# In[296]:
+
+
+# Total value of reward paid on offer completions which happened without offer viewing
+transcript_unpacked[transcript_unpacked['completiontype']=='offer: not viewed']['reward'].sum()
+
+
+# Multiple Active Offers
+
+# In[309]:
+
+
+# Total number of cases with 2+ active offers
+transcript_unpacked[transcript_unpacked['active_offers']=='2+'].shape[0]
+
+
+# In[310]:
+
+
+# Total number of offer completions from multiple active offers which were double counted
+transcript_unpacked[(transcript_unpacked['event']=='offer completed') & (transcript_unpacked['completiontype']=="")].shape[0]
+
+
+# In[302]:
+
+
+# Total value  of reward paid on double counted completions
+transcript_unpacked[(transcript_unpacked['event']=='offer completed') & (transcript_unpacked['completiontype']=="")]['reward'].sum()
+
+
+# In[ ]:
+
+
+df_temp = txnhist[txnhist['event']==event]
+    df_temp_grp = pd.DataFrame(df_temp.groupby(['influence'])['amount'].sum())
+    df_temp_grp.rename(columns = {'amount':'txn_value'},inplace=True)
+
