@@ -80,7 +80,7 @@ Background/Context:
 Outcomes
 * Customers' transactions were successfully labelled based on influencing offers - BOGO, Discount and Self.
 * A customer-offer interaction matrix was generated with individual customer's preferences captured as unique combination of money spent across BOGO, Discount and Self. Thie was enriched with customer details from profile dataset to create a comprehensive reference dataset.
-* PCA of key features and resulting K-means clustering generated five (5) customer segments with silhouette score of 0.7456 (cloer to 1, the better).
+* PCA of key features and resulting K-means clustering generated five (5) customer segments with silhouette score of 0.7456 (closer to 1, the better).
 * Performance of offers was evaluated across different segments using transaction value and average transaction value. The choice of completion as an offer performance measure is insufficient as it excludes the cumulative impact of the small "unqualifying" transactions to the sales revenue of Starbucks (see category offer results below)
 
 See results report via the [link](https://github.com/ChidiOnum/Starbucks-Capstone/blob/902e8215d7703f0866503e78e8f7fdfabd7c9fca/Category%20Results.pdf) and within this [this GitHub repository](https://github.com/ChidiOnum/Starbucks-Capstone.git) and [blog post](https://chidi-ndukwe.medium.com/starbucks-capstone-project-28a0ebee5849)
